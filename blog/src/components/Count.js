@@ -1,6 +1,7 @@
 import React , { useState }from "react";
 
 function Count(){
+  
   const numberState = useState(10); // 상태값 초기화
 
   const num = numberState[0]; //상태값 초기값 value 
@@ -8,12 +9,12 @@ function Count(){
 
   const increase = () =>{
     //setNum(num + 10);
-    //최적화 : 이전 상태값 가져와서 변화시키기 prev + (변수명) 
+    //성능최적화 : 이전 상태값 가져와서 변화시키기 prev + (변수명) 
     setNum(prevNum => prevNum +10);
   }
   const decrease = () =>{
     setNum(num - 10);
-    //최적화 : 이전 상태값 가져와서 변화시키기 prev + (변수명)
+    //성능최적화 : 이전 상태값 가져와서 변화시키기 prev + (변수명)
     //setNum(prevNum => prevNum -5);
   }
   return(
