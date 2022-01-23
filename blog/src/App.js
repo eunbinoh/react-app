@@ -87,6 +87,21 @@ function App() {
   
 }
 
+
+/** Life Cycle
+ * 
+ * 생성      - constructor
+ * 
+ * 업데이트   - 1 getDerivedStateFromProps
+ *           - 2 shouldComponentUpdate 
+ *           - 3 render
+ *           - 4 getSnapshotBeforeUpdate
+ *           - 5 componentDidUpdate
+ * 
+ * 언마운트 - componentWillUnmount
+ * 
+ */
+
 class Subject extends Component {
   render(){
     return (
