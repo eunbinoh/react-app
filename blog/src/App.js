@@ -65,7 +65,7 @@ function App() {
   return (
     <div className='App'>
       <Subject title="WEB" sub="Hello React :)"></Subject>
-      <TOC name="Hello" color="pink" isSpecial></TOC>
+      <TOC name="Hello" color="pink" style="none" isSpecial></TOC>
                                   {/* isSpecial="true" 생략가능 */}
       <Count/><br/>
 

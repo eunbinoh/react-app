@@ -2,11 +2,11 @@ import React, { Component } from "react";
 
 
 class TOC extends Component {
-  render(name,color,isSpecial){
+  render(name,color,style,isSpecial){
 
     return(
         <div>
-          <ul>
+          <ul style={{listStyle:this.props.style}}>
             <li><a href="1.html">HTML</a></li>
             <li><a href="2.html">{this.props.name}</a></li>
             <li><a href="3.html">{this.props.color}</a></li>
