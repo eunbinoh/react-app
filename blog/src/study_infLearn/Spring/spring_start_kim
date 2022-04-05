@@ -1,0 +1,84 @@
+2022-03-29
+
+- 스프링 입문 
+- by 김영한
+- 코드로 배우는 스프링 부트, 웹 MVC, DB 
+- 5강
+
+
+public class MemoryMemberRepository implements MemberRepository {
+
+  private static Map<Long, Member> store = new HashMap<>();
+  private static long seq = 0L;
+
+  @Override
+  public Member sace(Member member){
+    member.setId(++seq);
+    store.put(member.getId(), member);
+    return member;
+  }
+
+  @Override
+  public Optional<Member> findById(Long id){
+    return Optional.ofNullable(store.get(id));
+  }
+
+  @Override
+  public Optional<Member> findName(String name){
+    store.values().stream()
+      .filter(member -> member.getName().equals(name))
+      .findAny();
+
+  }
+
+  @Override
+  public List<Member> findAll(){
+    return new ArrayList<>(store.values());
+  }
+
+}
+
+
+@Test 각각은 순서 상관없이 전체 돌기때문에,
+각 테스트 실행이 끝날때마다 test data clear 중요 *
+->
+@AfterEach
+public void afterEach(){
+  repository.clearStore();
+}
+
+
+
+2022-04-05
+
+- 스프링 입문 
+- by 김영한
+- AOP (Aspect Oriented Programming)
+ : 핵심관심사항(core concern ) 로직 / 공통관심사항(cross-cutting concern) 로직 분리 -> 유지보수 용이
+ + 원리 : 프록시 기술을 사용해서 임의의 가상 Service를 생성해서 인터셉터 하는 식으로 사용, 
+   joinPoint.proceed 호출 후 진짜 로직 진행.
+ : 복잡한 로직을 순수 핵심 로직과 그때 그때 사용해야할 로직 분리
+ : 스프링 컨테이너 원하는 시점에, 원하는 적용 대상에게만 메소드 사용해야할
+ : 대용량 데이터 처리시 시간싸움, 성능 개선
+ - AOP 만들고나서 Configuration 스프링 빈에 @Bean return 등록해서 사용 
+
+ @Aspect
+ @Component
+ public class TimeTraceAop {
+
+   @Around("execution(* pakageNm.classNm.controller/service/.. *(..))")
+   public Object execute (ProceedingJoinPoint joinPoint ) throws Throwable {
+     long start = System.currentTimeMillis();
+    System.out.println("START:" + joinPoint.toString());
+
+    try{
+      return joinPoint.proceed();
+    } finally {
+      long finish = System.currentTimeMillis();
+      long timeMs = finish - start;
+      System.out.println("END:" + joinPoint.toString() + "" + timeMs + "ms");
+
+    }
+
+   }
+ }
